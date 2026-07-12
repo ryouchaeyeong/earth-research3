@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지구과학심화탐구</title>
+    <style>
+        #leftone {
+            position:absolute;
+            top: 130px;
+            left: 5%;
+            right: 100px;
+            bottom: 40px;
+        }
+        #rightone {
+            position:absolute;
+            top: 130px;
+            left: 30%;
+            right: 100px;
+            bottom: 40px;
+        }
+        #title {
+            font-size: 30px;
+            font-weight: 900;
+        }
+        #button1 {
+            position:absolute;
+            top: 150px;
+            left: 50%;
+            right: 100px;
+            bottom: 40px;
+        }
+        #seolmyeong {
+            color: gray;
+            position:absolute;
+            top: 400px;            
+        }
+        #star {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border: 0.1px solid black;
+            position:absolute;
+            top: 300px;
+            left: 10%;
+            border-radius: 100%;
+        }
+        #star2 {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border: 0.1px solid black;
+            position:absolute;
+            top: 300px;
+            left: 35%;
+            border-radius: 100%;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="title">
+        <span>별의 색깔 모형</span><hr>
+    </div>
+    <div>*별의 정보를 직접 선택해주세요</div><hr>
+    <div id="leftone">
+        <label>별의 반지름(태양 반지름의 n배)<br>0<input type='range' id="R" onclick="starshape(R.value)">1000</label>
+    </div>
+    <script>
+    </script>
+    <div id="rightone">
+        <label>별의 광도(태양 광도의 n배)<br>0<input type='range' id="L" onclick="starcolor()">1</label>
+
+    </div>
+    <div id="button1">
+        <button id="button" onclick="sayMyName()">결과</button>
+    </div>
+
+    <div id="star">  
+    </div>
+    <div id="star2">
+    </div>
+    <div id="seolmyeong">
+        <hr><span>왼쪽은 분광형에 따른 색, 오른쪽은 λmax에 따른 색 </span>
+    </div>
+    <script>
+        const R = document.querySelector('#R');
+        const L = document.querySelector('#L');
+
+        function sayMyName() {
+            alert('반지름: '+ R.value*10 +'배, '+ '광도: '+ L.value/100 + '배');            
+        }
+
+        const star = document.querySelector('#star');
+        const star2 = document.querySelector('#star2');
+
+        function starshape(R){
+            let scale = Number(R)/8;
+        star.style.transform = `scale(${scale})`
+        star2.style.transform = `scale(${scale})`
+        }
+        function starcolor(){
+            let result1 = ((L.value*3.8*10**28)/(4*3.14*5.670*10**-8*(R.value*6.96*10**7)**2)) ** 0.25;
+            let result2 = ((2.898*(10**6))/result1);
+            alert(result1+'K, '+result2+'nm');
+
+            if(30000 < result1) {
+                star.style.backgroundColor = "blue"
+            }
+            if(10000 < result1 && result1 < 30000) {
+                star.style.backgroundColor = "skyblue"
+            }
+            if(7500 < result1 && result1 < 10000) {
+                star.style.backgroundColor = "white"
+            }
+            if(6000 < result1 && result1 < 7500) {
+                star.style.backgroundColor = "wheat"
+            }
+            if(5200 < result1 && result1 < 6000) {
+                star.style.backgroundColor = "yellow"
+            }
+            if(3700 < result1 && result1 < 5200) {
+                star.style.backgroundColor = "orange"
+            }
+            if(result1 < 3700) {
+                star.style.backgroundColor = "red"
+            }
+            
+            if(620 < result2){
+                star2.style.backgroundColor = 'red'
+            }
+            if(590 < result2 && result2 < 620){
+                star2.style.backgroundColor = 'orange'
+            }
+            if(570 < result2 && result2 < 590){
+                star2.style.backgroundColor = 'yellow'
+            }
+            if(495 < result2 && result2 < 570){
+                star2.style.backgroundColor = 'green'
+            }
+            if(450 < result2 && result2 < 495){
+                star2.style.backgroundColor = 'cyan'
+            }
+            if(425 < result2 && result2 < 450){
+                star2.style.backgroundColor = 'blue'
+            }
+            if(result2 < 425){
+                star2.style.backgroundColor = 'indigo'
+            }
+        }
+
+    </script>
+
+</body>
+</html>
